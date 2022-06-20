@@ -7,8 +7,10 @@ import json
 import time
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTask, CustomFieldHelper
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-api = TheHiveApi('http://thehive.rkomi.ru', 'q4Z/SWGO3IBXE+HtwBYyWL/9EYw36c2+')
+api = TheHiveApi('https://thehive.rkomi.ru', '', cert=False)
 
 # Prepare the sample case
 tasks = [
@@ -18,11 +20,11 @@ tasks = [
 ]
 
 # Prepare the custom fields
-customFields = CustomFieldHelper()\
-    .add_boolean('booleanfield', True)\
-    .add_string('businessimpact', 'HIGH')\
-    .add_date('occurdate', int(time.time())*1000)\
-    .add_number('cvss', 9)\
+customFields = CustomFieldHelper() \
+    .add_boolean('booleanfield', True) \
+    .add_string('businessimpact', 'HIGH') \
+    .add_date('occurdate', int(time.time()) * 1000) \
+    .add_number('cvss', 9) \
     .build()
 
 case = Case(title='From TheHive4Py',
@@ -38,6 +40,7 @@ print('Create Case')
 print('-----------------------------')
 id = None
 response = api.create_case(case)
+print(response.status_code)
 if response.status_code == 201:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
@@ -64,7 +67,7 @@ response = api.create_case_task(id, CaseTask(
     status='InProgress',
     owner='nabil',
     flag=True,
-    startDate=int(time.time())*1000))
+    startDate=int(time.time()) * 1000))
 if response.status_code == 201:
     print(json.dumps(response.json(), indent=4, sort_keys=True))
     print('')
