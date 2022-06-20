@@ -8,7 +8,7 @@ import time
 from thehive4py.api import TheHiveApi
 from thehive4py.models import Case, CaseTask, CustomFieldHelper
 
-api = TheHiveApi('http://127.0.0.1:9000', 'q4Z/SWGO3IBXE+HtwBYyWL/9EYw36c2+')
+api = TheHiveApi('http://thehive.rkomi.ru', 'q4Z/SWGO3IBXE+HtwBYyWL/9EYw36c2+')
 
 # Prepare the sample case
 tasks = [
