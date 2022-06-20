@@ -9,8 +9,8 @@ def job_day ():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    schedule.every(10).seconds.do(job)
-    schedule.every(18).
+    schedule.every().minute.do(job)
+    schedule.every().day.do(job_day)
     schedule.every().saturday.at("21:49").do(job_day)
     while True:
         schedule.run_pending()
